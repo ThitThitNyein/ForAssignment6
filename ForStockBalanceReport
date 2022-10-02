@@ -1,0 +1,138 @@
+//Stock Balance Report
+//#ifndef STOCK_H
+#//define STOCK H
+#include<string>
+#include<iostream>
+#include<iomanip>
+
+using namespace std;
+
+class Stockbalance
+{
+public:
+    Stockbalance(const string&,const string&,const string&,double=0.0,double=0.0);
+    
+    void setStockNumber(const string&);
+    string getStockNumber()const;
+    
+    void setStockName(const string&);
+    string getStockName()const;
+    
+    void setCodeNumber(const string&);
+    string getCodeNumber()const;
+    
+    void setstockPrice(double);
+    double getstockPrice()const;
+    
+    void setstock_balance(double);
+    int getstock_balance()const;
+    
+    double amount()const;
+    void print()const;
+    
+private:
+    string stockno;
+    string stockname;
+    string codenumber;
+    double stockprice;
+    int stock_balance;
+};
+//#endif
+
+Stockbalance::Stockbalance(const string&sno,const string&sname,const string&cno,double sprice,double sbal)
+{
+    stockno = sno;
+    stockname = sname;
+    codenumber = cno;
+    setstockPrice(sprice);
+    setstock_balance(sbal);
+}
+
+void Stockbalance::setStockNumber(const string&sno)
+{
+    stockno = sno;
+}
+
+string Stockbalance::getStockNumber()const
+{
+    return stockno;
+}
+
+void Stockbalance::setStockName(const string&sname)
+{
+    stockname = sname;
+}
+
+string Stockbalance::getStockName()const
+{
+    return stockname;
+}
+
+void Stockbalance::setCodeNumber(const string&cno)
+{
+    codenumber = cno;
+}
+
+string Stockbalance::getCodeNumber()const
+{
+    return codenumber;
+}
+
+void Stockbalance::setstockPrice(double sprice)
+{
+        if(sprice>=0.0)
+            stockprice = sprice;
+        else
+            throw invalid_argument("StockPrice must be >=0.0");
+}
+
+double Stockbalance::getstockPrice()const
+{
+    return stockprice;
+}
+
+void Stockbalance::setstock_balance(double sbal)
+{
+    if(sbal>0.0 && sbal<100.0)
+        stock_balance=sbal;
+    else
+        throw invalid_argument("Stock Balance must be > 0 and <100");
+}
+
+int Stockbalance::getstock_balance()const
+{
+    return stock_balance;
+}
+
+double Stockbalance::amount()const
+{
+    return stockprice*stock_balance;
+}
+
+void Stockbalance::print()const
+{
+    cout<<"Stock Balance : "<<stockno<<' '<<stockname
+        <<"\nCode Number : "<<codenumber
+        <<"\nStock Price : "<<stockprice
+        <<"\nStock Balance : "<<stock_balance;
+}
+
+int main()
+{
+    Stockbalance balance("1","Jone C","111111",10000.0,2.0);
+    cout<<fixed<<setprecision(2);
+    cout<<"Stock Balance Report : \n"
+        <<"\nStock Number is "<<balance.getStockNumber()
+        <<"\nStock Name is "<<balance.getStockName()
+        <<"\nStock Code Number is "<<balance.getCodeNumber()
+        <<"\nStock Price is "<<balance.getstockPrice()
+        <<"\nStock Balance is "<<balance.getstock_balance()<<endl;
+    
+    balance.setstockPrice(25000.0);
+    balance.setstock_balance(3.0);
+    cout<<"\nUpdated Stock Balance's Amount information output by print function : \n"<<endl;
+    balance.print();
+    cout<<"\n\nBalance's Amount  : $ "<<balance.amount()<<endl;
+    return 0;
+	 
+}
